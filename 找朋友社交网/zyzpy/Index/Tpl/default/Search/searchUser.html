@@ -1,0 +1,95 @@
+﻿<include file="Common:header"/>
+    <title>找呀找朋友-找朋友</title>
+  </head>
+  <body>
+	<!--导航条开始-->
+		<include file="Common:nav"/>
+	<!--导航条结束-->
+	<!--主体内容开始-->
+	<div class="container">
+			<div class='row'>
+				<div class="col-md-10 col-md-offset-1">
+				  <div class="row white">
+		<!--左边开始-->
+			<include file="Common:left"/>
+		<!--左边结束-->
+		
+		<!--中间开始-->
+			<div class="col-md-10 white">
+				<h2 class="text-center"><span class="glyphicon glyphicon-search"></span>找活动</h2>
+				<form method="post" action="{:U('Search/searchUser')}" class='search-url'>
+					<div class="input-group">
+					  <input type="text" name="keyword" value="{$keyword}" class="form-control">
+					  <div class="input-group-btn">
+						  <button type="submit" class="btn btn-info search">找朋友</button>
+						  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu pull-right" role="menu">
+							<li><a class='search-user pointer'>找朋友</a></li>
+							<li><a class='search-weibo pointer'>找活动</a></li>
+						  </ul>
+					  </div>
+					</div>
+				</form>
+				
+				<hr/>
+				<if condition="$result">
+					<foreach name='result' item='v'>
+						<div class="row follow">
+							<div class="col-md-2">
+								<a href="{:U('/'.$v['uid'])}"><img src="
+								<if condition='$v["face80"]'>
+									__ROOT__/Uploads/Face/{$v.face80}
+								<else/>
+									__PUBLIC__/Them/{$style}/images/1.jpg
+								</if>" width="80px" height="80px"/></a>
+							</div>
+							<div class="col-md-6">
+								<p><a href="{:U('/'.$v['uid'])}" target="_blank">{$v.username}</a></p>
+								<p><if condition='$v["sex"] eq "1"'><img src='__PUBLIC__/Them/default/images/boy.png'/><else/><img src='__PUBLIC__/Them/default/images/girl.png'/></if>
+								<if condition="$v['location']">
+									{$v.location}
+								<else/>
+									该用户未填写资料
+								</if>
+								</p>
+								<div class="row">
+									<a href="{:U('follow/'.$v['uid'])}" target="_blank">关注{$v.follow}</a> | <a href="{:U('fans/'.$v['uid'])}" target="_blank">粉丝{$v.fans}</a> | <a href="{:U('/'.$v['uid'])}" target="_blank">活动{$v.weibo}</a>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<if condition="$v['mutual']">
+									<button type="button" class="btn btn-default disable" disabled="disabled"><span class="glyphicon glyphicon-ok"></span> 相互关注</button>
+								<elseif condition="$v['followed']"/>
+									<button type="button" class="btn btn-default disable" disabled="disabled"><span class="glyphicon glyphicon-ok"></span> 已关注　</button>
+								<else/>
+									<button class="btn btn-warning guanzhu"   uid='{$v.uid}' data-toggle="modal" data-target="#guanzhu">
+									  　 <span class="glyphicon glyphicon-plus"></span> 关注　
+									</button>
+								</if>
+							</div>
+							<div class="col-md-1">
+								<if condition="$v['followed'] | $v['mutual']"><button class='btn btn-xs text-muted del-follow' uid="{$v['uid']}" type="1">移除</button></if>
+							</div>
+						</div>
+						<hr/>
+					</foreach>
+				<else/>
+					<h2 class="text-center text-info">没有找到与 <span class="text-danger">{$keyword}</span> 相关的用户 <img src="__PUBLIC__/biaoqing/wulai.gif" alt="无赖" /></h2>
+				</if>
+				<p class="text-center">{$page}</p>
+				
+			</div>
+		<!--中间结束-->
+		</div>
+		</div>
+		</div>
+	</div>
+	<!--主体内容结束-->
+	
+	<!--底部开始-->
+	<include file="Common:bottom"/>
+	<!--底部结束-->
+  </body>
+</html>

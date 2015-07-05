@@ -1,0 +1,146 @@
+﻿<include file='Common:header'/>
+    <title>微博设置</title>
+  </head>
+  <body>
+	<!--导航条开始-->
+    <include file='Common:nav'/>
+	<!--导航条结束-->
+	<!--主体内容开始-->
+	<div class="container">
+			<div class='row'>
+				<div class="col-md-10 col-md-offset-1">
+				  <div class="row white">
+		<!--左边开始-->
+			<include file='Common:left'/>
+		<!--左边结束-->
+		
+		<!--中间开始-->
+			<div class="col-md-7">
+					<ul class="nav nav-tabs">
+					  <li><a href="#jibenxinxi" data-toggle="tab">基本信息</a></li>
+					  <li><a href="#xiugaitouxiang" data-toggle="tab">修改头像</a></li>
+					  <li><a href="#xiugaimima" data-toggle="tab">修改密码</a></li>
+					</ul>
+
+					<div class="tab-content">
+					  <div class="tab-pane active" id="jibenxinxi">
+						<form method="post" action="{:U(editBasic)}">
+						<p>
+							<div class="row">
+								<div class="col-md-4 text-right">昵称：</div>
+								<div class="col-md-8"><input type="text" name="username" value="{$user.username}" class="form-control" placeholder="昵称" required autofocus/></div>
+							</div>
+							</p>
+							<p>
+							<div class="row">
+								<div class="col-md-4 text-right">真实姓名：</div>
+								<div class="col-md-8"><input type="text" name="truename" value="{$user.truename}" class="form-control" placeholder="真实姓名" required/></div>
+							</div>
+							</p>
+							<p>
+							<div class="row">
+								<div class="col-md-4 text-right">性别：</div>
+								<div class="col-md-8">
+									<input type="radio" name="sex" value="1" <if condition='$user["sex"]=="1"'>checked='checked'</if> />男
+									<input type="radio" name="sex" value="0" <if condition='$user["sex"]=="0"'>checked='checked'</if> />女
+								</div>
+							</div>
+							</p>
+							
+							<p>
+							<div class="row">
+								<div class="col-md-4 text-right">所在大学：</div>
+								<div class="col-md-8"><input type="text" name="location" value="{$user.location}" class="form-control" placeholder="所在大学" required/></div>
+							</div>
+							</p>
+							
+							<p>
+							<div class="row">
+								<div class="col-md-4 text-right">所在专业：</div>
+								<div class="col-md-8"><input type="text" name="constellation" value="{$user.constellation}" class="form-control" placeholder="所在专业" required/></div>
+							</div>
+							</p>
+							
+							<p>
+							<div class="row">
+								<div class="col-md-4 text-right">一句话介绍自己：</div>
+								<div class="col-md-8"><textarea name="intro" class="form-control" rows="3" class="form-control" placeholder="一句话介绍自己">{$user.intro}</textarea></div>
+							</div>
+							</p>
+								
+							<p>								
+							<div class="row">
+								<div class="col-md-12 text-center"><input type="submit" class="btn btn-info" value="提交"/></div>
+							</div>
+							</p>
+							
+						</form>
+					  </div>
+					  <!--头像修改-->
+					  <div class="tab-pane fade" id="xiugaitouxiang">
+						<p>
+							<img src="<if condition='$user["face180"]'>__ROOT__/Uploads/Face/{$user["face180"]}<else/>__PUBLIC__/Them/{$style}/images/1.jpg</if>" id='face-image' class="center-block" width="180px" height="180px"/>
+						</p>
+						<p>
+							<div class='row'>
+								<div class='col-md-7 col-md-offset-5'>
+									<input type="file" class="center-block" id="face"/>
+								</div>
+							</div>
+							<form action="{:U('UserSetting/editFace')}" method="post">
+								<input type="hidden" name='face180' value=''/>
+								<input type="hidden" name='face80' value=''/>
+								<input type="hidden" name='face50' value=''/>
+								<input type="submit" class='btn btn-primary center-block' value='保存修改'/>
+							</form>
+						</p>
+					  </div>
+					  
+					  <div class="tab-pane fade" id="xiugaimima">
+					  <p>
+						<form method="post" action="{:U('editPwd')}">
+							<p>
+								<div class="row">
+									<div class="col-md-4 text-right">旧密码：</div>
+									<div class="col-md-8"><input type="password" name="oldPassword" class="form-control" placeholder="旧密码" required autofocus /></div>
+								</div>
+							<p>
+							
+							<p>
+								<div class="row">
+									<div class="col-md-4 text-right">新密码：</div>
+									<div class="col-md-8"><input type="password" name="newPassword" class="form-control" placeholder="新密码" required/></div>
+								</div>
+							<p>
+							
+							<p>
+								<div class="row">
+									<div class="col-md-4 text-right">确认密码：</div>
+									<div class="col-md-8"><input type="password" name="rePassword" class="form-control" placeholder="确认密码" required/></div>
+								</div>
+							<p>
+							
+							<p>							
+								<div class="row">
+									<div class="col-md-12 text-center"><input type="submit" class="btn btn-info" value="提交"/></div>
+								</div>
+							<p>
+						</form>
+						</p>
+					  </div>
+					</div>
+				</div>
+				<hr/>
+				
+			</div>
+		<!--中间结束-->
+		</div>
+		</div>
+	</div>
+	<!--主体内容结束-->
+	<!--底部开始-->
+		<include file='Common:bottom'/>
+	<!--底部结束-->
+	
+  </body>
+</html>

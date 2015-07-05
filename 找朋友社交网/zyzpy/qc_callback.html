@@ -1,0 +1,41 @@
+<html> 
+   <head> 
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	 <title> QQConnect JSDK - redirectURI </title>
+	 <style type="text/css">
+		html, body{font-size:14px; line-height:180%;}
+	 </style>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+   </head> 
+   <body> 
+   
+	<div>
+		<h3>鏁版嵁浼犺緭涓紝璇风◢鍚?..</h3>
+	</div>
+
+<script type="text/javascript">
+var paras = {};
+
+QC.api("get_user_info", paras)
+	.success(function(s){//成功回调
+		alert("获取用户信息成功！当前用户昵称为："+s.data.nickname);
+		data = {
+			username : s.data.nickname
+		};
+		/*$.post("http://www.zyzpy.com/zyzpy/index.php/QQLogin/index",data,function(){
+			alert(111);
+		},'json');*/
+	})
+	.error(function(f){//失败回调
+		alert("获取用户信息失败！");
+	})
+	.complete(function(c){//完成请求回调
+		alert("获取用户信息完成！");
+	});
+</script>
+
+   </body> 
+</html>
+
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" charset="utf-8" data-callback="true"></script>
+

@@ -1,0 +1,100 @@
+<php>
+	$where=array('uid'=>session('uid'));
+	$field=array('username','face80'=>'face','follow','fans','weibo','uid');
+	$userinfo=M('userinfo')->where($where)->field($field)->find();
+</php>
+
+		<div class="col-md-3 light-gray">
+			<br/>
+				<div class='row'>
+					<div class='col-md-6'>
+						<a href="{:U('/'.session('uid'))}"><img src="
+							<if condition='$userinfo["face"]'>
+								__ROOT__/Uploads/Face/{$userinfo.face}
+							<else/>
+								__PUBLIC__/Them/{$style}/images/1.jpg
+							</if>
+						" width="80px" height="80px"/>
+					</div>
+					<div class='col-md-6'>
+						<h4><a href="{:U('/'.session('uid'))}">{$userinfo.username}</a></h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<a href="{:U('follow/' . session('uid'))}"><h4>{$userinfo.follow}</h4>关注</a>
+					</div>
+					<div class="col-md-4">
+						<a href="{:U('fans/' . session('uid'))}"><h4>{$userinfo.fans}</h4>粉丝</a>
+					</div>
+					<div class="col-md-4">
+						<a href="{:U('/'.session('uid'))}"><h4>{$userinfo.weibo}</h4>活动</a>
+					</div>
+				</div>
+			
+			<!--可能感兴趣的人-->
+			
+			<?php
+				$db=M('follow');
+				$where=array('fans'=>session('uid'));
+				$follow=$db->where($where)->field('follow')->select();
+				
+				foreach($follow as $k=>$v){
+					$follow[$k] = $v['follow'];
+				}
+				
+				$sql='SELECT `uid`,`username`,`face50` AS `face`,COUNT(f.`follow`) AS `count` FROM `hd_follow` f LEFT JOIN `hd_userinfo` u ON f.`follow`=u.`uid` WHERE f.`fans` IN('.implode(',',$follow).') AND f.`follow` NOT IN('. implode(',',$follow) .') AND f.`follow` <> '. session('uid') .' GROUP BY f.`follow` ORDER BY `count` DESC LIMIT 4';
+				$friend=$db->query($sql);
+				if(!$friend){
+					$where=array('fans'=>session('uid'));
+					$follow=$db->where($where)->field('follow')->select();
+					if($follow){
+						foreach($follow as $k=>$v){
+							$follow[$k]=$v['follow'];
+						}
+					}
+					$follow[]=session('uid');
+					$where=array('uid'=>array('NOT IN',$follow));
+					$friend=M('userinfo')->limit(4)->where($where)->field(array('face50'=>'face','username','uid'))->select();
+				}
+			?>
+				<hr/>
+				<h6 class='center-block text-center text-muted'>可能感兴趣的人</h6>
+				<foreach name='friend' item='v'>
+					<p>
+						<div class="row">
+							<div class="col-md-3">
+								<a href="{:U('/'.$v['uid'])}" target="_blank"><img src="<if condition='$v["face"]'>
+									__ROOT__/Uploads/Face/{$v.face}
+								<else/>
+									__PUBLIC__/Them/{$style}/images/1.jpg
+								</if>
+								
+								" width="30px" height="30px"/></a>
+							</div>
+							<div class="col-md-5">
+								<b><a href="{:U('/'.$v['uid'])}" target="_blank">{$v.username}</a></b><br/>
+								<small><if condition="$v['count']">{$v.count}<else/>0</if>个好友</small>
+							</div>
+							<div class="col-md-3">
+								<!--<button type="button" class="btn btn-default btn-xs pull-left">
+								  <span class="glyphicon glyphicon-plus"></span>关注
+								</button>-->
+								
+								<button class="btn btn-warning guanzhu  btn-xs"   uid='{$v.uid}' data-toggle="modal" data-target="#guanzhu">
+									<span class="glyphicon glyphicon-plus"></span>关注
+								</button>
+							</div>
+						</div>
+					</p>
+				</foreach>
+				
+				<!--公告栏-->
+				<hr/>
+				<h6 class='center-block text-center text-muted'>公 告 栏</h6>
+				<br/>
+				<h5 class='center-block text-center text-primary'><b><a href="{:U('Index/gonggao_cy')}" style="color:#ff0000;">找呀找朋友寻求创业战友</a></b></h5>
+				<br/>
+				<h6 class='center-block text-center text-primary'><a href="{:U('Index/gonggao_php')}">PHP+网页平面freedom学习小组求队友</a></h6>
+				<br>
+			</div>

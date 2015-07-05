@@ -1,0 +1,47 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container nav-in">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="__APP__"><img src='__PUBLIC__/Them/{$style}/images/logo-replace.png'/></a>
+			</div>
+			
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+				  <li class="<if condition='$isindex eq 1'>active</if>"><a href="__APP__">首页</a></li>
+				  <li class="<if condition='$isletter eq 1'>active</if>"><a href="{:U('User/letter')}">私信</a></li>
+				  <li class="<if condition='$iscomment eq 1'>active</if>"><a href="{:U('User/comment')}">评论</a></li>
+				  <li class="<if condition='$isatme eq 1'>active</if>"><a href="{:U('User/atme')}">@我</a></li>
+					<form method="post" action="{:U('Search/searchUser')}" class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" name="keyword" class="form-control" placeholder="找朋友/找活动"/>
+					</div>
+					  <input type="submit" value="搜索" class="btn btn-default"/>
+					</form>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				<li><a href="{:U('/'.session('uid'))}"><php>$username=M('userinfo')->where(array('uid'=>session('uid')))->field('username')->find();
+					echo $username['username'];
+				</php></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-edit"></span></a></li>
+				
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{:U('User/comment')}">查看评论</a></li>
+						<li><a href="{:U('User/letter')}">查看私信</a></li>
+						<li><a href="{:U('User/keep')}">查看收藏</a></li>
+						<li><a href="{:U('User/atme')}">查看@我</a></li>
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{:U('UserSetting/index')}">帐号设置</a></li>
+						<li><a class='them pointer' data-toggle="modal" data-target="#them">模版设置</a></li>
+						<li><a href="{:U('Index/loginOut')}">退出登陆</a></li>
+					</ul>
+				</li>
+				</ul>
+			</div>
+		</div>
+	</nav>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<?php
+		$style=M('userinfo')->where(array('uid'=>session('uid')))->getField('style');
+	?>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="找呀找朋友，大学生线下活动社交平台" />
+    <meta name="Description" content="找呀找朋友，大学生线下活动社交平台，运动、学习、音乐、旅行、技能、助人为乐、聚会、老乡会、情感、影视/戏剧、动漫/游戏、生活/兴趣。发布活动，找到志同道合的小伙伴一起参与吧" />
+	<link rel="shortcut icon" href="__PUBLIC__/Them/default/images/icon.png">
+	<link href="__PUBLIC__/Them/{$style}/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="__PUBLIC__/Them/{$style}/css/common.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/Uploadify/uploadify.css" rel="stylesheet">
+    <script src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js"></script>
+	
+    <script type='text/javascript'>
+        var address = "{$user.location}";
+        var PUBLIC = '__PUBLIC__';
+        var uploadUrl = '{:U("UploadFace/uploadFace")}';
+        var uploadPic = '{:U("UploadFace/uploadPic")}';
+        var sid = '{:session_id()}';
+        var ROOT = '__ROOT__';
+        var addFollow = "{:U('Common/addfollow')}";
+        var commentUrl = "{:U('Index/comment')}";
+        var getComment = "{:U('Index/getComment')}";
+        var delWeibo = "{:U('Index/delWeibo')}";
+        var delFollow = "{:U('Common/delFollow')}";
+        var keepUrl = "{:U('Index/keep')}";
+        var cancelKeep = "{:U('User/cancelKeep')}";
+        var delLetter = "{:U('User/delLetter')}";
+        var sendComment = "{:U('User/sendComment')}";
+        var delComment = "{:U('User/delComment')}";
+        var searchUser = "{:U('Search/searchUser')}";
+        var searchWeibo = "{:U('Search/searchWeibo')}";
+        var editStyle = "{:U('Common/editStyle')}";
+        var baoming = "{:U('Activity/baoming')}";
+        var delBaoming = "{:U('Activity/delBaoming')}";
+        var luqu = "{:U('Activity/luqu')}";
+        var kaichu = "{:U('Activity/kaichu')}";
+    </script>
+	
+	
+    <script src="__PUBLIC__/js/common.js"></script>
+    <script src="__PUBLIC__/Uploadify/jquery.uploadify.min.js"></script>

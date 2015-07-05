@@ -1,0 +1,80 @@
+﻿<include file='Common:header'/>
+	<title>找呀找朋友-评论</title>
+  </head>
+  <body>
+  <!--导航条开始-->
+    <include file='Common:nav'/>
+	<!--导航条结束-->
+	<!--主体内容开始-->
+	<div class="container">
+			<div class='row'>
+				<div class="col-md-10 col-md-offset-1">
+				  <div class="row white">
+		<!--左边开始-->
+			<include file='Common:left'/>
+		<!--左边结束-->
+		
+		<!--中间开始-->
+			<div class="col-md-7 white">
+				<h3 class="text-muted text-center"><span class="glyphicon glyphicon-comment"></span> 我的评论（共{$count}条）</h3>
+				<hr/>
+					<!--评论开始-->
+					<if condition="$comment">
+					<foreach name='comment' item='v'>
+						<div class="row comment">
+							<div class="col-md-2">
+								<a href="{:U('/'.$v['uid'])}">
+								<img src="
+								<if condition='$v["face"]'>
+									__ROOT__/Uploads/Face/{$v.face}
+								<else/>
+									__PUBLIC__/Them/{$style}/images/1.jpg
+								</if>" width="50px" height="50px"/></a>
+							</div>
+							<div class="col-md-7">
+								<p class="username"><a href="{:U('/'.$v['uid'])}">{$v.username}</a>：{$v.content|replace_weibo=###}</p>
+								<p class="text-muted">{$v.time|time_format=###} </p>
+							</div>
+							<div class="col-md-3">
+								<span class='del-comment text-primary pointer' cid='{$v["id"]}' wid='{$v["wid"]}'>删除</span>
+								| 
+								<span data-toggle="collapse" href="#huifu{$v['id']}" class='reply-comment text-primary pointer' wid='{$v.id}'>
+								  回复
+								</span>
+							</div>
+						</div>
+						
+						<div id="huifu{$v['id']}" class="panel-collapse collapse">
+							<p><input type="text" class='form-control' required /></p>
+							
+							<p class=''>
+								表情<button class='btn btn-warning pull-right huifu' wid='{$v.wid}'>回复</button>
+							</p>
+						</div>
+						
+						<br/>
+					</foreach>
+					<p class="text-center">{$page}</p>
+					<else/>
+						<h2 class="text-center text-info">您好像还木有评论任何活动<img src="__PUBLIC__/biaoqing/qiaomuyu.gif" alt="敲木鱼" /></h2>
+					</if>
+					<!--评论结束-->
+					<hr/>
+			</div>
+		<!--中间结束-->
+		
+		
+		<!--右边开始-->
+			<include file='Common:right'/>
+		<!--右边结束-->
+		</div>
+		</div>
+		</div>
+	</div>
+	<!--主体内容结束-->
+	
+	<!--底部开始-->
+		<include file='Common:bottom'/>
+	<!--底部结束-->
+  </body>
+</html>

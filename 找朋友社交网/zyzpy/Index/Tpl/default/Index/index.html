@@ -1,0 +1,211 @@
+﻿<include file='Common:header'/>
+	<title>微博首页</title>
+  </head>
+  <body>
+  <!--导航条开始-->
+    <include file='Common:nav'/>
+	<!--导航条结束-->
+	<!--主体内容开始-->
+	<div class="container">
+			<div class='row'>
+				<div class="col-md-10 col-md-offset-1">
+				  <div class="row white">
+		<!--左边开始-->
+			<include file='Common:left'/>
+		<!--左边结束-->
+		
+		<!--中间开始-->
+			<div class="col-md-7">
+				<h3 class="text-muted">发布一条活动，寻找小伙伴一起参与吧 ^_^</h3>
+				<form action="{:U('Index/sendWeibo')}" method="post">
+					<a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+						<textarea class="form-control biaoqing0" cols=87 rows=2 name='content' placeholder="西大线下活动，爬缙云山、逛洋人街求组队，一运打篮球、羽毛球求组队，一起学编程、上自习求组队，老乡会，看电影，麻将三缺一。小伙伴们等着和你一起玩，你还等啥？" required></textarea>
+					</a><br>
+					<div class="row">
+						<div id="collapse1" class="panel-collapse collapse">
+							<div class="col-md-6">
+								<p><input type='text' name='activity_time' placeholder="活动开始时间" class="form-control"/></p>
+								<p><input type='text' name='qq' placeholder="留个qq号，方便联系" class="form-control"/></p>
+							</div>
+							<div class="col-md-6">
+								<p><input type='text' name='location' placeholder="活动地点，方便小伙伴们集合^_^" class="form-control"/></p>
+								<p><input type='text' name='telephone' placeholder="在留个电话号码，万无一失" class="form-control"/></p>
+							</div>
+						</div>
+					</div>
+					<p>
+						<div class="row">
+							<div class="col-md-10">
+								<h4>
+									<span class='biaoqing pointer' target='biaoqing0'><img src="__PUBLIC__/Them/{$style}/images/phiz.png"/></span>　
+									<a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+									  <span class="glyphicon glyphicon-picture"></span>
+									</a>
+								</h4>
+							</div>
+							<div class="col-md-2">
+								<input class="btn btn-info" type="submit" value="发布">
+							</div>
+						</div>
+						<!--上传图片位置-->
+						<div class="row">
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<input type='hidden' name='max' value='' />
+								<input type='hidden' name='medium' value='' />
+								<input type='hidden' name='mini' value='' />
+								<input type='file' name="picture" id="picture"/>
+								<img src=''  class="img-thumbnail" id='uploadPic'/>
+							</div>
+						</div>
+					</p>
+				</form>
+				<hr/>
+				<if condition="$weibo">
+				<foreach name='weibo' item='v'>
+					<if condition='!$v["isturn"]'>
+						<!--原创微博样式开始-->
+						<div class="row weibo">
+							<div class="col-md-2">
+								<a href="{:U('/'.$v['uid'])}" target="_blank">
+								<img src="
+								<if condition='$v["face"]'>
+									__ROOT__/Uploads/Face/{$v.face}
+								<else/>
+									__PUBLIC__/Them/{$style}/images/1.jpg
+								</if>
+								" width="50px" height="50px"/></a>
+							</div>
+							<div class="col-md-10">
+								<p class="username"><a href="{:U('/'.$v['uid'])}" target="_blank">{$v.username}</a></p>
+								<p class="content"><a href="{:U('Activity/index'.'?wid='.$v['id'])}" target="_blank">{$v.content|replace_weibo=###}</a></p>
+								<if condition='$v["mini"]'>
+									<img src="__ROOT__/Uploads/Pic/{$v.mini}" class='mini'/>
+									<div class='max hidden'>
+										<div class='text-primary'><a href="__ROOT__/Uploads/Pic/{$v.max}" target='_blank'>查看大图</a></div>
+										<img src="__ROOT__/Uploads/Pic/{$v.medium}"/>
+									</div>
+								</if>
+								<br/>
+								<div class="row">
+									<div class="col-md-6">
+										<span class="text-muted">{$v.time|time_format=###}</span>
+									</div>
+									<div class="col-md-6">
+										<span href="" class='turn pointer text-primary' id='{$v.id}' data-toggle="modal" data-target="#zhuanfa">转发 <if condition='$v["turn"]'>({$v.turn})</if></span>
+										| <span class='keep text-primary pointer' wid={$v.id}>收藏<if condition='$v["keep"]'>({$v.keep})</if></span> | 
+										<span data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#pinglun{$v.id}" class='getComment text-primary pointer' wid='{$v.id}'>
+										  评论<if condition='$v["comment"]'>({$v.comment})</if>
+										</span>
+										<if condition='$_SESSION["uid"] == $v["uid"]'><span class='del-weibo hidden text-primary pointer' wid='{$v.id}'> | 删除</span></if>
+									</div>
+								</div>
+								<hr/>
+								<div id="pinglun{$v.id}" class="panel-collapse collapse">
+									<p><input type="text" class='form-control biaoqing{$v.id}' required /></p>
+									<p class='beforComment'>
+										<span class='biaoqing pointer' target='biaoqing{$v.id}'><img src="__PUBLIC__/Them/{$style}/images/phiz.png"/></span> <input type='checkbox'/> <button class='btn btn-warning pull-right pinglun' wid='{$v.id}'>评论</button> <span class='text-muted'>同时转发</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<hr/>
+						<!--原创微博样式结束-->
+					<else/>
+						<!--转发微博样式开始-->
+						<div class="row weibo">
+							<div class="col-md-2">
+								<a href="{:U('/'.$v['uid'])}" target="_blank">
+								<img src="
+								<if condition='$v["face"]'>
+									__ROOT__/Uploads/Face/{$v.face}
+								<else/>
+									__PUBLIC__/Them/{$style}/images/1.jpg
+								</if>
+								" width="50px" height="50px"/></a>
+							</div>
+							<div class="col-md-10">
+								<p class="username"><a href="{:U('/'.$v['uid'])}" target="_blank">{$v.username}</a></p>
+								<p class="content">{$v.content|replace_weibo=###}</p>
+								
+								<p>
+								<div class="row">
+									<div class="col-md-10 col-md-offset-1 light-gray">
+										<if condition='$v[isturn] == -1'>
+											原活动已被删除....~_~!<img src="__PUBLIC__/biaoqing/datou.gif" alt="打头" />
+										<else/>
+											<p>
+											<p class="usernameed"><a href="{:U('/'.$v['isturn']['uid'])}" target="_blank">{$v.isturn.username}</a></p>
+											<a href="{:U('Activity/index'.'?wid='.$v['isturn']['id'])}" target="_blank"><p class="contented">{$v.isturn.content|replace_weibo=###}</p></a>
+											<if condition='$v["isturn"]["mini"]'>
+												<img src="__ROOT__/Uploads/Pic/{$v.isturn.mini}" class='mini'/>
+												<div class='max hidden'>
+													<div class='text-primary'><a href="__ROOT__/Uploads/Pic/{$v.isturn.max}" target='_blank'>查看大图</a></div>
+													<img src="__ROOT__/Uploads/Pic/{$v.isturn.medium}"/>
+												</div>
+											</if>
+											<br/>
+											<div class="row">
+												<div class="col-md-5">
+													<span class="text-muted">{$v.isturn.time|time_format=###}</span>
+												</div>
+												<div class="col-md-7">
+													<span class="text-primary pointer">转发 <if condition='$v["isturn"]["turn"]'>({$v.isturn.turn})</if></span>
+													| <span class="text-primary pointer">收藏<if condition='$v["keep"]'>({$v.keep})</if></span> | 
+													<span class="text-primary pointer">评论<if condition='$v["isturn"]["comment"]'>({$v.isturn.comment})</if></span>
+												</div>
+											</div>
+											</p>
+										</if>
+									</div>
+								</div>
+								</p>
+								
+								<div class="row">
+									<div class="col-md-6">
+										<span class="text-muted">{$v.time|time_format=###}</span>
+									</div>
+									<div class="col-md-6">
+										<span class='turned text-primary pointer' id='{$v.id}' tid='{$v.isturn.id}' data-toggle="modal" data-target="#zhuanfa">转发 <if condition='$v["turn"]'>({$v.turn})</if></span>
+										| <span class='keep text-primary pointer' wid={$v.id}>收藏<if condition='$v["keep"]'>({$v.keep})</if></span> | 
+										<span data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#pinglun{$v.id}" class='getComment text-primary pointer' wid='{$v.id}'>
+										  评论<if condition='$v["comment"]'>({$v.comment})</if>
+										</span>
+										<if condition='$_SESSION["uid"] == $v["uid"]'><span class='del-weibo hidden text-primary pointer' wid='{$v.id}'> | 删除</span></if>
+									</div>
+								</div>
+								
+								<hr/>
+								<div id="pinglun{$v.id}" class="panel-collapse collapse">
+									<p><input type="text" class='form-control biaoqing{$v.id}' required /></p>
+									<p class='beforComment'>
+										<span class='biaoqing pointer' target='biaoqing{$v.id}'><img src="__PUBLIC__/Them/{$style}/images/phiz.png"/></span> <input type='checkbox'/> <button class='btn btn-warning pull-right pinglun' wid='{$v.id}'>评论</button> <span class='text-muted'>同时转发</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<!--转发微博样式结束-->
+						<hr/>
+					</if>
+				</foreach>
+				<else/>
+					<h2 class='text-center text-info'>你和你关注的居然没有发布活动<img src="__PUBLIC__/biaoqing/jingxia.gif" alt="惊吓" /></h2>
+				</if>
+				<p class="text-center">{$page}</p>
+			</div>
+		<!--中间结束-->
+		
+		
+		<!--右边开始-->
+			<include file='Common:right'/>
+		<!--右边结束-->
+		</div>
+		</div>
+		</div>
+	</div>
+	<!--主体内容结束-->
+	
+	<!--底部开始-->
+		<include file='Common:bottom'/>
+	<!--底部结束-->
+  </body>
+</html>

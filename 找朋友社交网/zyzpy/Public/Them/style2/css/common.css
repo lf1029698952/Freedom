@@ -1,0 +1,31 @@
+body{
+	background:url(../images/back_image.gif) repeat fixed;
+}
+.light-gray{
+	background:#fff7fa;
+	border:1px solid #fce1ea;
+}
+.white{
+	background:#ffffff;
+	border:1px solid #fefefe;
+}
+.gray{
+	background:#ededed;
+	border:1px solid #dcdcdc;
+}
+.pointer{
+	cursor:pointer;
+}
+.navbar-brand{
+	background:url(../images/logo.png) no-repeat;
+}
+body {
+  padding-top: 60px;
+}
+.navbar{
+	background:url(../images/nav-bg.png) repeat;
+}
+.user-self{
+	background:url(../images/user_bg.jpg) no-repeat;
+	padding-top:210px;
+}

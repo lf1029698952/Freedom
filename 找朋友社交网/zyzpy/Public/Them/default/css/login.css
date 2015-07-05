@@ -1,0 +1,35 @@
+body{
+	background:url(../images/login_bg.jpg) no-repeat fixed;
+}
+.light-gray{
+	background:#f5f5f5;
+	border:1px solid #dddddd;
+}
+.white{
+	background:#ffffff;
+	border:1px solid #fefefe;
+}
+.gray{
+	background:#ededed;
+	border:1px solid #dcdcdc;
+}
+.pointer{
+	cursor:pointer;
+}
+.navbar-brand{
+	background:url(../images/logo.png) no-repeat;
+}
+body {
+  padding-top: 100px;
+}
+.navbar{
+	background:url(../images/nav-bg.png) repeat;
+}
+.user-self{
+	background:url(../images/user_bg.jpg) no-repeat;
+	padding-top:210px;
+}
+.btn-group{
+	margin-top: 10px;
+	margin-left: 8px;
+}

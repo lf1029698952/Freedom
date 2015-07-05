@@ -1,0 +1,31 @@
+<php>
+	$group=M('group')->where(array('uid'=>session('uid')))->select();
+</php>
+			
+<div class="col-md-2 light-gray">
+	<div class='row'>
+		<div class='col-md-11 col-md-offset-2'>
+			<br/>
+			<h4><a href="__APP__"><span class="glyphicon glyphicon-home"></span> 首页</a></h4>
+			<h4><a href="{:U('Index/myJoin')}"><span class="glyphicon glyphicon-random"></span> 我的参与</a></h4>
+			<h4><a href="{:U('User/atme')}">@ 提到我的</a></h4>
+			<h4><a href="{:U('User/comment')}"><span class="glyphicon glyphicon-comment"></span> 评论</a></h4>
+			<h4><a href="{:U('User/letter')}"><span class="glyphicon glyphicon-envelope"></span> 私信</a></h4>
+			<h4><a href="{:U('User/keep')}"><span class="glyphicon glyphicon-star-empty"></span> 收藏</a></h4>
+			<hr/>
+			<h4><a href="{:U('Index/myFollow')}"><span class="glyphicon glyphicon-star-empty"></span> 我的关注</a></h4>
+			<h4><a href="{:U('Index/onlyGirl')}"><span class="glyphicon glyphicon-star-empty"></span> 只看女生</a></h4>
+			<h4><a href="{:U('Index/onlyBoy')}"><span class="glyphicon glyphicon-star-empty"></span> 只看男生</a></h4>
+			<hr>
+			<h4><a href="__APP__"><span class="glyphicon glyphicon-map-marker"></span> 全部</a></h4>
+			<foreach name='group' item='v'>
+				<h4><a href="{:U('Index/index',array('gid'=>$v['id']))}"><span class="glyphicon glyphicon-map-marker"></span> {$v.name}</a></h4>
+			</foreach>
+			<hr/>
+			<button type="btn" class="btn btn-xs" data-toggle="modal" data-target="#fenzu">
+				<span class='text-primary'>创建分组</span>
+			</button>
+			<hr/>
+		</div>
+	</div>
+</div>
