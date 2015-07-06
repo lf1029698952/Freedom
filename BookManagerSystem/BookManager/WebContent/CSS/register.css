@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+<style type="text/css">
+	* {
+				padding:0;
+				margin:0;
+	}
+	span{
+		font-size: 12px;
+	}
+	.stats1{
+		color:#aaa;
+	}
+	.stats2{
+		color:#000;
+	}
+	.stats3{
+		color:red;
+	}
+	.stats4{
+		color:green;
+	}
+	form {
+				border: 1px solid lightblue;
+				width:400px;
+				margin:0 auto;
+				position:absolute;
+				top:30%;
+				left:40%;
+	}
+form input {
+				width:120px;
+				height:30px;
+				margin-top:3px;
+	}
+form input.radio{
+				width:10px;
+				height:30px;
+				margin-top:0;
+				position:relative;
+				top:7px;
+}
+</style>

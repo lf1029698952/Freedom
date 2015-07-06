@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="com.freedom.action" namespace="/" extends="struts-default">
+		<!-- class属性指向ApplicationContext设置里面的loginBean -->
+		<action name="loginAction" class="userActionBean" method="login">
+			<result name="success">bookManage.jsp</result>
+			<result name="error">error.jsp</result>
+			<result name="null">null.jsp</result>
+		</action>
+		
+		<action name="registerAction" class="userActionBean" method="register">
+			<result name="success">registerSuccess.jsp</result>
+		</action>
+		
+		<action name="user" class="userActionBean" method="show">
+			<result name="success">userInfo.jsp</result>
+		</action>
+		
+		<action name="addBookAction" class="bookActionBean" method="add">
+			<result name="success">addBookSuccess.jsp</result>
+		</action>
+		
+		<action name="page" class="bookActionBean" method="show">
+           <result name="success">/bookInfo.jsp</result>
+     	</action>
+     	
+		<action name="addReaderAction" class="readerActionBean" method="add">
+           <result name="success">/addReaderSuccess.jsp</result>
+           <result name="input">/addReaderError.jsp</result>
+     	</action>
+     	
+		<action name="reader" class="readerActionBean" method="show">
+           <result name="success">/readerInfo.jsp</result>
+     	</action>
+     	
+		<action name="image" class="imageActionBean" method="validateCode">
+           <result name="success">/login.jsp</result>
+     	</action>
+     	
+		<action name="loginOut" class="userActionBean" method="loginOut">
+     		<result name="success">/login.jsp</result>
+     	</action>
+     	
+		<action name="checkName" class="checkActionBean" method="checkName">
+     	</action>
+     	
+     	<action name="checkCode" class="checkActionBean" method="checkCode">
+     	</action>
+     	
+		<action name="borrow" class="borrowActionBean" method="borrow">
+     		<result name="success">/borrowSuccess.jsp</result>
+     		<result name="error">/borrowError.jsp</result>
+     	</action>
+     	
+     	<action name="return" class="borrowActionBean" method="returnBook">
+     		<result name="success">/returnSuccess.jsp</result>
+     		<result name="error">/returnError.jsp</result>
+     	</action>
+     	
+     	<action name="borrowed" class="borrowActionBean" method="borrowed">
+     		<result name="success">/borrowBook.jsp</result>
+     	</action>
+     	
+     	<action name="updateBookAction" class="bookActionBean" method="updateBook">
+     		<result name="success">/updateSuccess.jsp</result>
+     	</action>
+     	
+     	<action name="getBookInfo" class="bookActionBean" method="getBookInfo">
+     		<result name="success">/bookUpdate.jsp</result>
+     	</action>
+     	
+     	<action name="deleteBook" class="bookActionBean" method="deleteBook">
+     		<result name="success">/deleteSuccess.jsp</result>
+     	</action>
+     	
+     	<action name="history" class="borrowActionBean" method="history">
+     		<result name="success">/history.jsp</result>
+     	</action>
+     	
+	</package>
+</struts>
