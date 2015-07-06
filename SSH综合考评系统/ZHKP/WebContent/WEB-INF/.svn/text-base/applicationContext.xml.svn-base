@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd                      
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	<!-- 定义数据源 -->
+
+	<bean id="dataSource" destroy-method="close"
+		class="org.apache.commons.dbcp2.BasicDataSource">
+		<!-- 指定连接数据库的JDBC驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 连接数据库所用的URL -->
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/zhkp?useUnicode=true&amp;characterEncoding=utf-8">
+		</property>
+		<!-- 连接数据库的用户名 -->
+		<property name="username" value="root">
+		</property>
+		<!-- 连接数据库的密码 -->
+		<property name="password" value="112257657">
+		</property>
+		<!-- <property name="hibernate.jdbc.batch_size" value="50"> </property> -->
+		<!-- 设置数据库连接池的最大连接数 -->
+		<!-- <property name="maxActive" value="20"> </property> -->
+		<!-- 设置数据库连接池的最小连接数 -->
+		<!-- <property name="minCount" value="2"> </property> -->
+		<!-- 设置数据库连接池的初始化连接数 -->
+		<!-- <property name="initialSize" value="2"> </property> -->
+		<!-- 设置数据库连接池的连接的最大空闲时间,单位为秒 -->
+		<!-- <property name="maxIdle" value="20"> </property> -->
+	</bean>
+	<!-- 定义sessionFactory -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<!-- 配置hibernate实体映射关系 -->
+		<property name="annotatedClasses">
+			<list>
+				<value>cn.edu.swu.zhkp.entity.Dept</value>
+				<value>cn.edu.swu.zhkp.entity.Admin</value>
+				<value>cn.edu.swu.zhkp.entity.Awarded</value>
+				<value>cn.edu.swu.zhkp.entity.Course</value>
+				<value>cn.edu.swu.zhkp.entity.Gather</value>
+				<value>cn.edu.swu.zhkp.entity.Grade</value>
+				<value>cn.edu.swu.zhkp.entity.Moral</value>
+				<value>cn.edu.swu.zhkp.entity.Role</value>
+				<value>cn.edu.swu.zhkp.entity.User</value>
+				<value>cn.edu.swu.zhkp.entity.AllGrade</value>
+				<value>cn.edu.swu.zhkp.entity.Checker</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 定义数据源 end -->
+
+	<!-- 定义事务 -->
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 定义事务 end -->
+
+	<!-- Pager -->
+	<bean id="pagerDAO" class="cn.edu.swu.zhkp.dao.PagerDAO" />
+
+	<!-- DeptDAO -->
+	<bean id="deptDAO" class="cn.edu.swu.zhkp.dao.impl.DeptDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- UserDAO -->
+	<bean id="userDAO" class="cn.edu.swu.zhkp.dao.impl.UserDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- AdminDAO -->
+	<bean id="adminDAO" class="cn.edu.swu.zhkp.dao.impl.AdminDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- RoleDAO -->
+	<bean id="roleDAO" class="cn.edu.swu.zhkp.dao.impl.RoleDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- CourseDAO -->
+	<bean id="courseDAO" class="cn.edu.swu.zhkp.dao.impl.CourseDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- AdminServer -->
+	<bean id="adminServer" class="cn.edu.swu.zhkp.service.AdminServer">
+		<property name="userDao" ref="userDAO" />
+		<property name="adminDao" ref="adminDAO" />
+		<property name="courseDao" ref="courseDAO" />
+	</bean>
+
+	<!-- RoleServer -->
+	<bean id="roleServer" class="cn.edu.swu.zhkp.service.RoleServer">
+		<property name="roleDao" ref="roleDAO" />
+	</bean>
+
+	<!-- Dept Bean -->
+	<bean id="deptBean" class="cn.edu.swu.zhkp.control.DeptAction">
+		<property name="deptdao">
+			<ref bean="deptDAO" />
+		</property>
+		<property name="pagerdao">
+			<ref bean="pagerDAO" />
+		</property>
+	</bean>
+	<!-- Admin Bean -->
+	<bean id="adminBean" class="cn.edu.swu.zhkp.control.AdminControl">
+		<property name="adminServer">
+			<ref bean="adminServer" />
+		</property>
+		<property name="roleServer">
+			<ref bean="roleServer" />
+		</property>
+	</bean>
+
+
+	<!-- 配置spring事务特性，配置add,delete,update开始的方法，事务传播特性为required -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+
+
+
+	<!-- 配置哪些类的方法行进事务管理，当前cn.model包中的子包,类中所有方法需要，还需要参考tx:advice的设置 -->
+	<aop:config>
+		<aop:pointcut id="interceptorPointCuts"
+			expression="execution(* cn.edu.swu.zhkp.control.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="interceptorPointCuts" />
+	</aop:config>
+
+	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	<!-- AwardedDAO -->
+	<bean id="awardedDao" class="cn.edu.swu.zhkp.dao.impl.AwardedDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!-- AwardedService -->
+	<bean id="awardedService" class="cn.edu.swu.zhkp.service.AwardedService">
+		<property name="awardedDao">
+			<ref bean="awardedDao" />
+		</property>
+	</bean>
+
+	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+</beans>

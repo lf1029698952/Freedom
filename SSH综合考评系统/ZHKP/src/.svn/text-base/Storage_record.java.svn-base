@@ -1,0 +1,64 @@
+package com.arch.entity;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+public class Storage_record {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private Date storage_time;
+	private String storage_type;
+	private int storage_sum;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "operator")
+	private User operator;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getStorage_time() {
+		return storage_time;
+	}
+
+	public void setStorage_time(Date storage_time) {
+		this.storage_time = storage_time;
+	}
+
+	public String getStorage_type() {
+		return storage_type;
+	}
+
+	public void setStorage_type(String storage_type) {
+		this.storage_type = storage_type;
+	}
+
+	public int getStorage_sum() {
+		return storage_sum;
+	}
+
+	public void setStorage_sum(int storage_sum) {
+		this.storage_sum = storage_sum;
+	}
+
+	public User getOperator() {
+		return operator;
+	}
+
+	public void setOperator(User operator) {
+		this.operator = operator;
+	}
+
+}

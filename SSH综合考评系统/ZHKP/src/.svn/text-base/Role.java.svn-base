@@ -1,0 +1,65 @@
+package com.arch.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="sec_role")
+public class Role {
+	@Id
+	@Column(length=30)
+	private String Roleid;
+	@Column(length=50)
+	private String Name;
+	@Column(length=30)
+	private String Description;
+	@Column(length=1)
+	private char 	Status;
+	@Column
+	private Date	Create_time;
+	@Column
+	private String Short_key;
+	
+	public String getRoleid() {
+		return Roleid;
+	}
+	public void setRoleid(String roleid) {
+		Roleid = roleid;
+	}
+	public String getName() {
+		return Name;
+	}
+	public void setName(String name) {
+		Name = name;
+	}
+	public String getDescription() {
+		return Description;
+	}
+	public void setDescription(String description) {
+		Description = description;
+	}
+	public char getStatus() {
+		return Status;
+	}
+	public void setStatus(char status) {
+		Status = status;
+	}
+	public Date getCreate_time() {
+		return Create_time;
+	}
+	public void setCreate_time(Date create_time) {
+		Create_time = create_time;
+	}
+	public String getShort_key() {
+		return Short_key;
+	}
+	public void setShort_key(String short_key) {
+		Short_key = short_key;
+	}
+	
+}

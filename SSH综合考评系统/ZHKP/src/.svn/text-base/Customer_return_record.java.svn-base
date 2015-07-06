@@ -1,0 +1,100 @@
+package com.arch.entity;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Customer_return_record")
+public class Customer_return_record {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private Date return_time;
+	private String reason;
+	private String Set_status;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "operator")
+	private User Operator;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "set_dept")
+	private Dept Set_dept;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "goods_type")
+	private Goods_type goods_type;
+	private String Goods_orignal_code;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getReturn_time() {
+		return return_time;
+	}
+
+	public void setReturn_time(Date return_time) {
+		this.return_time = return_time;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getSet_status() {
+		return Set_status;
+	}
+
+	public void setSet_status(String set_status) {
+		Set_status = set_status;
+	}
+
+	public User getOperator() {
+		return Operator;
+	}
+
+	public void setOperator(User operator) {
+		Operator = operator;
+	}
+
+	public Dept getSet_dept() {
+		return Set_dept;
+	}
+
+	public void setSet_dept(Dept set_dept) {
+		Set_dept = set_dept;
+	}
+
+	public Goods_type getGoods_type() {
+		return goods_type;
+	}
+
+	public void setGoods_type(Goods_type goods_type) {
+		this.goods_type = goods_type;
+	}
+
+	public String getGoods_orignal_code() {
+		return Goods_orignal_code;
+	}
+
+	public void setGoods_orignal_code(String goods_orignal_code) {
+		Goods_orignal_code = goods_orignal_code;
+	}
+
+}

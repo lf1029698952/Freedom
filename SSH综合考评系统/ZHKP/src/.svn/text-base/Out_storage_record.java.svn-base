@@ -1,0 +1,71 @@
+package com.arch.entity;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "out_storage_record")
+public class Out_storage_record {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private Date out_storage_time;
+	// 0 赠出出库
+	// 1 销售出库
+	private String out_storage_type;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "operator")
+	private User Operator;
+	private int out_storage_sum;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getOut_storage_time() {
+		return out_storage_time;
+	}
+
+	public void setOut_storage_time(Date out_storage_time) {
+		this.out_storage_time = out_storage_time;
+	}
+
+	public String getOut_storage_type() {
+		return out_storage_type;
+	}
+
+	public void setOut_storage_type(String out_storage_type) {
+		this.out_storage_type = out_storage_type;
+	}
+
+	public User getOperator() {
+		return Operator;
+	}
+
+	public void setOperator(User operator) {
+		Operator = operator;
+	}
+
+	public int getOut_storage_sum() {
+		return out_storage_sum;
+	}
+
+	public void setOut_storage_sum(int out_storage_sum) {
+		this.out_storage_sum = out_storage_sum;
+	}
+
+}

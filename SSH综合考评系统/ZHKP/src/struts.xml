@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<include file="struts-award.xml"></include>
+	<include file="struts-admin.xml"></include>
+	<package name="archive" namespace="/" extends="struts-default">
+		<!-- 动态方法调用 -->
+		<action name="dept*" class="deptBean" method="{1}">
+			<result>/index.jsp</result>
+			<result name="list">/dept/deptlist.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,46 @@
+package com.arch.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "allocate_dept_res")
+public class Allocate_Dept_Res {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	private int id;
+	@Column(name = "DEPT")
+	private String dept;
+	@Column(name = "SUB_DEPT")
+	private String sub_dept;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getSub_dept() {
+		return sub_dept;
+	}
+
+	public void setSub_dept(String sub_dept) {
+		this.sub_dept = sub_dept;
+	}
+
+}

@@ -1,0 +1,85 @@
+package com.arch.entity;
+
+import java.util.Date;
+
+import javax.persistence.*;
+
+/**
+ * userid,name,email,phone,type,level
+ * 
+ * @author
+ */
+@Entity
+@Table(name = "sec_user")
+public class User {
+	@Id
+	@Column(name = "Userid")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int userid;
+	@Column(name = "Name")
+	private String name;
+	@Column(name = "Email")
+	private String email;
+	@Column(name = "Phone")
+	private String phone;
+	@Column(name = "Type")
+	private String type;
+	@Column(name = "Level")
+	private String level;
+
+	
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+}

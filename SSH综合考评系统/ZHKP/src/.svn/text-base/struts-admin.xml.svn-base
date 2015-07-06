@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<package name="admin" namespace="/admin" extends="struts-default">
+		<!-- 动态方法调用 -->
+		<action name="admin*" class="adminBean" method="{1}">
+			<result>/index.jsp</result>
+			<result name="addusers">/admin/addusers.jsp</result>
+			<result name="adduser">/admin/adduser.jsp</result>
+			<result name="addusersuccess">/admin/addsuccess.jsp</result>
+			<result name="userslist">/admin/userslist.jsp</result>
+			<result name="deleteok">/admin/success.jsp</result>
+			<result name="userdetail">/admin/userdetail.jsp</result>
+			<result name="success">/admin/success.jsp</result>
+			<result name="error">/admin/error.jsp</result>
+			<result name="addteacher">/admin/addteacher.jsp</result>
+			<result name="teacherlist">/admin/adminslist.jsp</result>
+			<result name="addcourses">/admin/addcourses.jsp</result>
+			<result name="courselist">/admin/courseslist.jsp</result>
+			<result name="creategatherui">/admin/creategather.jsp</result>
+			<result name="login">/admin/login.jsp</result>
+			<result name="gatherlist">/admin/gatherlist.jsp</result>
+			<result name="gatherdetail">/admin/gatherdetail.jsp</result>
+		</action>
+
+		<action name="usersupload" class="adminBean" method="usersupload">
+			<result name="upload">/admin/uploadSuccess.jsp</result>
+			<result name="error">/admin/uploaderror.jsp</result>
+			<result name="input">/default.jsp</result>
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">
+					image/png,image/gif,image/jpeg,text/plain,application/x-xls,application/vnd.ms-excel
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+		<action name="coursesupload" class="adminBean" method="coursesupload">
+			<result name="upload">/admin/uploadSuccess.jsp</result>
+			<result name="error">/admin/uploaderror.jsp</result>
+			<result name="input">/default.jsp</result>
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">
+					image/png,image/gif,image/jpeg,text/plain,application/x-xls,application/vnd.ms-excel
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+	</package>
+</struts>

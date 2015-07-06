@@ -1,0 +1,86 @@
+package com.arch.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="allocate_rule")
+public class Allocate_Rule {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ID")
+	private int id;
+	@Column(name="FROM")
+	private String from;
+	@Column(name="TO")
+	private String to;
+	@Column(name="STATUS")
+	private char status;
+	@Column(name="TYPE")
+	private int type;
+	@Column(name="ALLOW")
+	private char allow;
+	@Column(name="SPECIFIEDDEPT")
+	private String specifiedDept;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	public String getTo() {
+		return to;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
+	}
+
+	public char getStatus() {
+		return status;
+	}
+
+	public void setStatus(char status) {
+		this.status = status;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public char getAllow() {
+		return allow;
+	}
+
+	public void setAllow(char allow) {
+		this.allow = allow;
+	}
+
+	public String getSpecifiedDept() {
+		return specifiedDept;
+	}
+
+	public void setSpecifiedDept(String specifiedDept) {
+		this.specifiedDept = specifiedDept;
+	}
+
+}

@@ -1,0 +1,196 @@
+package com.arch.entity;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "goods")
+public class Goods {
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "typeid")
+	private Goods_type type;
+
+	private String status;
+	private String status_name;
+	private String goods_code;
+	private String goods_orignal_code;
+	private Date product_time;
+	private Date effective_time;
+	private Dept current_dept;
+	private Date storage_time;
+	private Date out_storage_time;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "storage_id")
+	private Storage_record storage_record;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "out_storage_id")
+	private Out_storage_record out_storage_record;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_return_id")
+	private Customer_return_record customer_return_record;
+	private Date injury_time;
+	private Date grant_time;
+	private int grant_type;
+	private Date customerReturnTime;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Goods_type getType() {
+		return type;
+	}
+
+	public void setType(Goods_type type) {
+		this.type = type;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getStatus_name() {
+		return status_name;
+	}
+
+	public void setStatus_name(String status_name) {
+		this.status_name = status_name;
+	}
+
+	public String getGoods_code() {
+		return goods_code;
+	}
+
+	public void setGoods_code(String goods_code) {
+		this.goods_code = goods_code;
+	}
+
+	public String getGoods_orignal_code() {
+		return goods_orignal_code;
+	}
+
+	public void setGoods_orignal_code(String goods_orignal_code) {
+		this.goods_orignal_code = goods_orignal_code;
+	}
+
+	public Date getProduct_time() {
+		return product_time;
+	}
+
+	public void setProduct_time(Date product_time) {
+		this.product_time = product_time;
+	}
+
+	public Date getEffective_time() {
+		return effective_time;
+	}
+
+	public void setEffective_time(Date effective_time) {
+		this.effective_time = effective_time;
+	}
+
+	public Dept getCurrent_dept() {
+		return current_dept;
+	}
+
+	public void setCurrent_dept(Dept current_dept) {
+		this.current_dept = current_dept;
+	}
+
+	public Date getStorage_time() {
+		return storage_time;
+	}
+
+	public void setStorage_time(Date storage_time) {
+		this.storage_time = storage_time;
+	}
+
+	public Date getOut_storage_time() {
+		return out_storage_time;
+	}
+
+	public void setOut_storage_time(Date out_storage_time) {
+		this.out_storage_time = out_storage_time;
+	}
+
+	public Storage_record getStorage_record() {
+		return storage_record;
+	}
+
+	public void setStorage_record(Storage_record storage_record) {
+		this.storage_record = storage_record;
+	}
+
+	public Out_storage_record getOut_storage_record() {
+		return out_storage_record;
+	}
+
+	public void setOut_storage_record(Out_storage_record out_storage_record) {
+		this.out_storage_record = out_storage_record;
+	}
+
+	public Customer_return_record getCustomer_return_record() {
+		return customer_return_record;
+	}
+
+	public void setCustomer_return_record(
+			Customer_return_record customer_return_record) {
+		this.customer_return_record = customer_return_record;
+	}
+
+	public Date getInjury_time() {
+		return injury_time;
+	}
+
+	public void setInjury_time(Date injury_time) {
+		this.injury_time = injury_time;
+	}
+
+	public Date getGrant_time() {
+		return grant_time;
+	}
+
+	public void setGrant_time(Date grant_time) {
+		this.grant_time = grant_time;
+	}
+
+	public int getGrant_type() {
+		return grant_type;
+	}
+
+	public void setGrant_type(int grant_type) {
+		this.grant_type = grant_type;
+	}
+
+	public Date getCustomerReturnTime() {
+		return customerReturnTime;
+	}
+
+	public void setCustomerReturnTime(Date customerReturnTime) {
+		this.customerReturnTime = customerReturnTime;
+	}
+
+}
